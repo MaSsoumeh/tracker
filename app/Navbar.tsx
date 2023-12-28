@@ -31,9 +31,9 @@ const Navbar = () => {
         <li
           key={link.title}
           className={classnames({
-            "font-semibold hover:text-[#55203C] transition-colors text-slate-500":
-              true,
+            "font-semibold hover:text-[#55203C] transition-colors": true,
             "text-[#55203C]": link.href === currentPath,
+            "text-slate-500": link.href !== currentPath,
           })}
         >
           <Link href={link.href}>{link.title}</Link>
