@@ -1,3 +1,3 @@
-export default function Home() {
-  return <div>Online Tracker</div>;
+export default function HomePage() {
+  return <div>Dashboard</div>;
 }
