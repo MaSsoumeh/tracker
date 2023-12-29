@@ -2,9 +2,10 @@
 import AlertBox from "@/app/components/AlertBox";
 import Icon from "@/app/components/Icon";
 import TextError from "@/app/components/TextError";
+import TextField from "@/app/components/TextField";
 import { postIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, TextField } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
@@ -45,13 +46,11 @@ const NewIssuePage = () => {
     <div className="max-w-lg">
       {error ? <AlertBox message={error} /> : null}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 mt-2">
-        <TextField.Root>
-          <TextField.Input
-            placeholder="Title"
-            {...register("title", { required: true })}
-          />
-        </TextField.Root>
-        {errors.title && <TextError message={errors.title.message} />}
+        <TextField
+          placeholder="Title"
+          {...register("title", { required: true })}
+          error={errors.title ? errors.title.message : ""}
+        />
         <Controller
           name="description"
           control={control}
