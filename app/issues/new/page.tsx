@@ -1,7 +1,7 @@
 "use client";
 import AlertBox from "@/app/components/AlertBox";
+import ErrorMessage from "@/app/components/ErrorMessage";
 import Icon from "@/app/components/Icon";
-import TextError from "@/app/components/TextError";
 import TextField from "@/app/components/TextField";
 import { postIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,9 +60,7 @@ const NewIssuePage = () => {
             return <SimpleMDE placeholder="Description" {...field} />;
           }}
         />
-        {errors.description && (
-          <TextError message={errors.description.message} />
-        )}
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button>
           <Icon>{IoCheckmarkSharp}</Icon>
           Submit Issue

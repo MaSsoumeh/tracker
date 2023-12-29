@@ -1,6 +1,5 @@
 import { TextField as RadixTextField } from "@radix-ui/themes";
-import TextError from "./TextError";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
 
 const TextField = (props: any) => {
   return (
@@ -8,7 +7,7 @@ const TextField = (props: any) => {
       <RadixTextField.Root>
         <RadixTextField.Input {...props} />
       </RadixTextField.Root>
-      {props.error ? <TextError message={props.error} /> : null}
+      {<ErrorMessage>{props.error}</ErrorMessage>}
     </div>
   );
 };
