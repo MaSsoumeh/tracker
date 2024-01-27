@@ -1,68 +1,58 @@
 "use client";
 import AlertBox from "@/app/components/AlertBox";
-import ErrorMessage from "@/app/components/ErrorMessage";
-import Icon from "@/app/components/Icon";
-import TextField from "@/app/components/TextField";
+import Button from "@/app/components/Button";
+import RHFTextEditor from "@/app/components/RHFTextEditor";
+import RHFTextField from "@/app/components/RHFTextField";
 import { postIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { IoCheckmarkSharp } from "react-icons/io5";
-import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
-type Inputs = z.infer<typeof postIssueSchema>;
+type IssueForm = z.infer<typeof postIssueSchema>;
 
 const NewIssuePage = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<Inputs>({
-    defaultValues: {
-      title: "",
-      description: "",
-    },
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { control, handleSubmit } = useForm<IssueForm>({
     resolver: zodResolver(postIssueSchema),
   });
 
-  const router = useRouter();
-  const [error, setError] = useState("");
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<IssueForm> = async (data) => {
     try {
+      setIsLoading(true);
       await axios.post("/api/issues", data);
       router.push("/issues");
     } catch (error) {
       setError("an unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
     }
   };
-  console.log(errors, "errors.description");
+
   return (
     <div className="max-w-lg">
       {error ? <AlertBox message={error} /> : null}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 mt-2">
-        <TextField
+        <RHFTextField
           placeholder="Title"
-          {...register("title", { required: true })}
-          error={errors.title ? errors.title.message : ""}
+          controller={{ control, name: "title" }}
         />
-        <Controller
-          name="description"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => {
-            console.log(field, "field");
-            return <SimpleMDE placeholder="Description" {...field} />;
-          }}
+        <RHFTextEditor
+          placeholder="Description"
+          controller={{ control, name: "description" }}
         />
-        <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button>
-          <Icon>{IoCheckmarkSharp}</Icon>
+        <Button
+          disabled={isLoading}
+          isLoading={isLoading}
+          icon={IoCheckmarkSharp}
+        >
           Submit Issue
         </Button>
       </form>

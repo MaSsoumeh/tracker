@@ -27,7 +27,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <ul className="flex flex-col flex-grow gap-1 w-[288px] h-full fixed top-0 z-50 bottom-0 px-6 border-r bg-[#4F46E5] border-[#382a70] mb-5 ">
+      <ul className="flex flex-col flex-grow gap-1 w-[288px] h-full fixed top-0 z-50 bottom-0 px-2 border-r bg-[#4F46E5] border-[#382a70] mb-5 ">
         <li className="flex items-center h-24">
           <Link href="/">
             <Image src={logoSrc} alt="logo" className="w-10 h-10" />

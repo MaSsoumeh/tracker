@@ -3,7 +3,11 @@ import { PropsWithChildren } from "react";
 
 const ErrorMessage = ({ children }: PropsWithChildren) => {
   if (!children) return null;
-  return <Text className="text-red-500">{children}</Text>;
+  return (
+    <Text as="p" className="text-red-500">
+      {children}
+    </Text>
+  );
 };
 
 export default ErrorMessage;
