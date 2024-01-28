@@ -3,14 +3,14 @@ import { ElementType, ReactNode } from "react";
 import Icon from "./Icon";
 import Spinner from "./Spinner";
 
-type Props = {
+interface ButtonProps {
+  disabled?: boolean;
   icon?: ElementType;
   children: ReactNode;
   isLoading?: boolean;
-  disabled?: boolean;
-};
+}
 
-const Button = (props: Props) => {
+const Button = (props: ButtonProps) => {
   const { icon, children, isLoading, disabled } = props;
   return (
     <RadixButton disabled={disabled}>

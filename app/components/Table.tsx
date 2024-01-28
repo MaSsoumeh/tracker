@@ -1,15 +1,17 @@
 import { Table as RadixTable } from "@radix-ui/themes";
 
-interface Row {
+export interface Row {
   [key: string]: any;
 }
 
+export interface Column {
+  field: keyof Row;
+  headerName: string;
+  renderCell?: (prop: Row) => any;
+}
+
 interface TableProps {
-  columns: {
-    field: keyof Row;
-    headerName: string;
-    renderCell?: (prop: Row) => any;
-  }[];
+  columns: Column[];
   rows: Row[] | undefined;
 }
 
