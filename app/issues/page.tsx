@@ -1,7 +1,6 @@
 import { Status } from "@prisma/client";
 import { Badge } from "@radix-ui/themes";
 import Link from "next/link";
-import { useMemo } from "react";
 import { IoAddCircleOutline } from "react-icons/io5";
 import Button from "../components/Button";
 import Table from "../components/Table";
@@ -12,7 +11,7 @@ const IssuePage = async () => {
 
   return (
     <div>
-      <div className="mb-2">
+      <div className="mb-4">
         <Link href="/issues/new">
           <Button icon={IoAddCircleOutline}>New Issue</Button>
         </Link>
@@ -20,7 +19,20 @@ const IssuePage = async () => {
 
       <Table
         columns={[
-          { field: "title", headerName: "Issue" },
+          {
+            field: "title",
+            headerName: "Issue",
+            renderCell: ({ row }) => (
+              <div className="flex-column space-y-2">
+                <div>{row.title}</div>
+                <div className="block lg:hidden">
+                  <Badge color={statusColor[row?.status as Status]}>
+                    {row?.status}
+                  </Badge>
+                </div>
+              </div>
+            ),
+          },
           {
             field: "status",
             headerName: "Status",
@@ -32,7 +44,7 @@ const IssuePage = async () => {
           },
           {
             field: "createdAt",
-            headerName: "CreatedAt",
+            headerName: "Created",
             renderCell: ({ row }) => row.createdAt.toDateString(),
           },
         ]}

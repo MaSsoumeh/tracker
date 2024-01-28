@@ -1,4 +1,5 @@
 import { Table as RadixTable } from "@radix-ui/themes";
+import classNames from "classnames";
 
 export interface Row {
   [key: string]: any;
@@ -24,8 +25,14 @@ const Table: React.FC<TableProps> = (props) => {
     <RadixTable.Root variant="surface">
       <RadixTable.Header>
         <RadixTable.Row>
-          {columnHeaders.map((header) => (
-            <RadixTable.ColumnHeaderCell key={header}>
+          {columnHeaders.map((header, index) => (
+            <RadixTable.ColumnHeaderCell
+              key={header}
+              className={classNames({
+                "table-cell": index === 0,
+                "hidden lg:table-cell": index !== 0,
+              })}
+            >
               {header}
             </RadixTable.ColumnHeaderCell>
           ))}
@@ -37,12 +44,18 @@ const Table: React.FC<TableProps> = (props) => {
           <RadixTable.Row key={index}>
             {Object.entries(row)
               .filter((item) => columnFields.includes(item[0]))
-              .map((r) => {
+              .map((r, index) => {
                 const correspondingCol = columns.find(
                   (col) => col.field === r[0]
                 );
                 return (
-                  <RadixTable.Cell key={r[1]}>
+                  <RadixTable.Cell
+                    key={r[1]}
+                    className={classNames({
+                      "table-cell": index === 0,
+                      "hidden lg:table-cell": index !== 0,
+                    })}
+                  >
                     {correspondingCol?.renderCell
                       ? correspondingCol?.renderCell({ row })
                       : r[1]}
