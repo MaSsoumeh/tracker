@@ -1,7 +1,6 @@
 import { Table as RadixTable } from "@radix-ui/themes";
 import classNames from "classnames";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "../components/Skeleton";
 import IssueActions from "./new/IssueActions";
 
 const LoadingIssuePage = () => {

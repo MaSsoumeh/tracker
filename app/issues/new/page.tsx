@@ -1,9 +1,11 @@
 "use client";
 
-import AlertBox from "@/app/components/AlertBox";
-import Button from "@/app/components/Button";
-import RHFTextEditor from "@/app/components/RHFTextEditor";
-import RHFTextField from "@/app/components/RHFTextField";
+import {
+  AlertBox,
+  Button,
+  RHFTextEditor,
+  RHFTextField,
+} from "@/app/components";
 import { postIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
