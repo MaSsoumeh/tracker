@@ -2,8 +2,10 @@ import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import { Badge } from "@radix-ui/themes";
 import delay from "delay";
+import Link from "next/link";
 import Table from "../components/Table";
 import { statusColor } from "../utils";
+import IssueStatus from "./_components/IssueStatus";
 import IssueActions from "./new/IssueActions";
 
 const IssuePage = async () => {
@@ -22,11 +24,9 @@ const IssuePage = async () => {
             headerName: "Issue",
             renderCell: ({ row }) => (
               <div className="flex-column space-y-2">
-                <div>{row.title}</div>
+                <Link href={`issues/${row.id}`}>{row.title}</Link>
                 <div className="block lg:hidden">
-                  <Badge color={statusColor[row?.status as Status]}>
-                    {row?.status}
-                  </Badge>
+                  <IssueStatus status={row?.status} />
                 </div>
               </div>
             ),
