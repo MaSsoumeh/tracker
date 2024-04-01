@@ -1,21 +1,19 @@
+import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import { Badge } from "@radix-ui/themes";
-import Link from "next/link";
-import { IoAddCircleOutline } from "react-icons/io5";
-import Button from "../components/Button";
+import delay from "delay";
 import Table from "../components/Table";
 import { statusColor } from "../utils";
+import IssueActions from "./new/IssueActions";
 
 const IssuePage = async () => {
   const issues = await prisma?.issue.findMany();
 
+  await delay(5000);
+
   return (
     <div>
-      <div className="mb-4">
-        <Link href="/issues/new">
-          <Button icon={IoAddCircleOutline}>New Issue</Button>
-        </Link>
-      </div>
+      <IssueActions />
 
       <Table
         columns={[
@@ -55,3 +53,4 @@ const IssuePage = async () => {
 };
 
 export default IssuePage;
+export const dynamic = "force-dynamic";

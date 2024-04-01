@@ -1,14 +1,15 @@
-import React from "react";
+import dynamic from "next/dynamic";
 import {
-  Control,
   Controller,
   FieldValues,
   UseControllerProps,
   useController,
 } from "react-hook-form";
-import SimpleMDE from "react-simplemde-editor";
 import ErrorMessage from "./ErrorMessage";
 
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 interface TextEditorProps<V extends FieldValues> {
   placeholder?: string;
   controller: UseControllerProps<V>;

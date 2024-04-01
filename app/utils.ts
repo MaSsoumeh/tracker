@@ -7,5 +7,5 @@ export const statusColor: Record<
 > = {
   OPEN: "cyan",
   CLOSE: "green",
-  IN_PROGRESS: "blue",
+  IN_PROGRESS: "violet",
 };
