@@ -1,13 +1,11 @@
 "use client";
+import classnames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import logoSrc from "../public/assets/ladybug.svg";
 import { usePathname } from "next/navigation";
-import classnames from "classnames";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoBugOutline, IoHomeOutline } from "react-icons/io5";
+import logoSrc from "../public/assets/bug.svg";
 import Icon from "./components/Icon";
-import { IoBugOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const currentPath = usePathname();
